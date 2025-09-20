@@ -35,14 +35,14 @@ async function getWeather(city) {
         const hour = new Date().getHours();
         const isNight = hour >= 18 || hour < 6;
 
+        // Show weather with emojis
         weatherResult.innerHTML = `
             <h2>${data.name}, ${data.sys.country}</h2>
             <p>${data.weather[0].main} | Temp: ${data.main.temp}°C</p>
             <p>${getMoodMessage(weather)}</p>
         `;
 
-        changeBackground(weather, isNight);
-
+        // Keep 3D animations
         generateLayer(weather, isNight);
 
     } catch (e) {
@@ -62,20 +62,7 @@ function getMoodMessage(weather) {
     }
 }
 
-function changeBackground(weather, isNight) {
-    if(isNight){
-        document.body.style.background = "linear-gradient(to top,#0b3d91,#1e3c72)";
-    } else {
-        switch(weather){
-            case "clear": document.body.style.background = "linear-gradient(to top,#fceabb,#f8b500)"; break;
-            case "clouds": document.body.style.background = "linear-gradient(to top,#bdc3c7,#2c3e50)"; break;
-            case "rain": case "drizzle": document.body.style.background = "linear-gradient(to top,#4e54c8,#8f94fb)"; break;
-            case "snow": document.body.style.background = "linear-gradient(to top,#e6dada,#274046)"; break;
-            default: document.body.style.background="#87CEEB";
-        }
-    }
-}
-
+// 3D Animation Layers
 function generateLayer(weather, isNight){
     resetLayers();
     if(weather === "clouds") createClouds(5);
